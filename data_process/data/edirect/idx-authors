@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Public domain notice for all NCBI EDirect scripts is located at:
+# https://www.ncbi.nlm.nih.gov/books/NBK179288/#chapter6.Public_Domain_Notice
+
+xtract -set IdxDocumentSet -rec IdxDocument -pattern PubmedArticle \
+  -wrp IdxUid -element MedlineCitation/PMID -clr -rst -tab "" \
+  -group PubmedArticle -pkg IdxSearchFields \
+    -block AuthorList -wrp ANUM -num Author/LastName \
+    -block PubmedArticle/MedlineCitation/Article/AuthorList/Author \
+      -wrp AUTH -sep " " -element LastName,Initials |
+transmute -format
